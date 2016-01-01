@@ -1,12 +1,12 @@
 using Toybox.Application as App;
 
 //
-// Connect IQ "Moving Time" Data Field
+// Connect IQ HR Percentage Data Field
 // Paul Moore <paul@paul-moore.com>
 //
 
 //
-// (c) Copyright Paul Moore, 2015
+// (c) Copyright Paul Moore, 2016
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of version 2 of the GNU General Public License as
@@ -21,7 +21,7 @@ using Toybox.Application as App;
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
 
-class MovingTimeApp extends App.AppBase {
+class HRPercentApp extends App.AppBase {
 
 	function initialize() {
 		AppBase.initialize();
@@ -37,7 +37,7 @@ class MovingTimeApp extends App.AppBase {
 	
 	//! Return the initial view of your application here
 	function getInitialView() {
-		return [ new MovingTimeView() ];
+		return [ new HRPercentView() ];
 	}
 
 }
