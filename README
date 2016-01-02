@@ -1,5 +1,8 @@
 Connect IQ Heart Rate Percentage Data Field
 ===============================================================================
+https://github.com/pcmoore/connectiq-hr_percent
 
-TBD
-
+This is a simple Connect IQ application which provides a heart rate as a
+percentage of the user's maximum heart rate.  This data field is different
+from the built-in data field on the Garmin fenix 3 as a "%" is included to
+help distinguish it from other fields.
