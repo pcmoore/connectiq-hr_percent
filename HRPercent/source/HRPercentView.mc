@@ -30,17 +30,17 @@ class HRPercentView extends Ui.SimpleDataField {
 
 	//! Set the label of the data field here.
 	function initialize() {
+		var profile;
 		var age;
 
 		SimpleDataField.initialize();
 		label = Ui.loadResource(Rez.Strings.field_label);
 
-		// one year in seconds = 31,536,000
-		age = Time.now().value() / 31536000 - 10;
-
 		// NOTE: calculations based on "Age adjusted" from below URL
 		//       -> http://www.runningforfitness.org/faq/hrmax
-		if (UserProfile.getProfile().gender == UserProfile.GENDER_FEMALE) {
+		profile = UserProfile.getProfile();
+		age = (1970 - profile.birthYear) + (Time.now().value() / 31536000);
+		if (profile.gender == UserProfile.GENDER_FEMALE) {
 			hr_max = 226 - age;
 		} else {
 			hr_max = 220 - age;
@@ -59,7 +59,7 @@ class HRPercentView extends Ui.SimpleDataField {
 
 		hr_percent = info.currentHeartRate.toFloat() / hr_max * 100;
 
-		return hr_percent.format("%d") + "%";
+		return hr_percent.format("%3d") + "%";
 	}
 
 }
