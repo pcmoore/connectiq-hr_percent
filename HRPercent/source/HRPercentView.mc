@@ -23,28 +23,19 @@ using Toybox.WatchUi as Ui;
 
 class HRPercentView extends Ui.SimpleDataField {
 
+	var hr_max;
+
+	// NOTE: we can't currently get HR max or zone info from the Connect IQ API
+	//       so we are stuck with the usual estimates for now
+
 	//! Set the label of the data field here.
 	function initialize() {
-		SimpleDataField.initialize();
-		label = Ui.loadResource(Rez.Strings.field_label);
-	}
-
-	//! The given info object contains all the current workout
-	//! information. Calculate a value and return it in this method.
-	function compute(info) {
-		var hr_max;
-		var hr_percent;
 		var age;
 
-		// only update if we actually have a heart rate
-		if (info.currentHeartRate == null) {
-			return;
-		}
+		SimpleDataField.initialize();
+		label = Ui.loadResource(Rez.Strings.field_label);
 
-		// NOTE: we can't currently get HR max or zone info from the Connect
-		//       IQ API so we are stuck with the usual estimates for now
-
-		// NOTE: one year in seconds = 31,536,000
+		// one year in seconds = 31,536,000
 		age = Time.now().value() / 31536000 - 10;
 
 		// NOTE: calculations based on "Age adjusted" from below URL
@@ -54,7 +45,19 @@ class HRPercentView extends Ui.SimpleDataField {
 		} else {
 			hr_max = 220 - age;
 		}
-		hr_percent = info.currentHeartRate.toFloat() / hr_max.toFloat() * 100;
+	}
+
+	//! The given info object contains all the current workout
+	//! information. Calculate a value and return it in this method.
+	function compute(info) {
+		var hr_percent;
+
+		// only update if we actually have a heart rate
+		if (info.currentHeartRate == null) {
+			return;
+		}
+
+		hr_percent = info.currentHeartRate.toFloat() / hr_max * 100;
 
 		return hr_percent.format("%d") + "%";
 	}
